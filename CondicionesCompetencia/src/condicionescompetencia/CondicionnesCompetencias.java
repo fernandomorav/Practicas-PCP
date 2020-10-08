@@ -6,6 +6,7 @@ package condicionescompetencia;
 public class CondicionnesCompetencias extends javax.swing.JFrame {
     public CondicionnesCompetencias() {
         initComponents();
+        Lp = new Hilo[4];
         rc = new RCompartido();
         t1 = new Hilo(jTextArea1,rc);
         t1.setName("Perrito 1");
@@ -15,6 +16,10 @@ public class CondicionnesCompetencias extends javax.swing.JFrame {
         t3.setName("Perrito 3");
         t4 = new Hilo(jTextArea4,rc);
         t4.setName("Perrito 4");
+        Lp[0]=t1;
+        Lp[1]=t2;
+        Lp[2]=t3;
+        Lp[3]=t4;
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -45,7 +50,7 @@ public class CondicionnesCompetencias extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Pausa");
+        jButton2.setText("Kill");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -142,14 +147,15 @@ public class CondicionnesCompetencias extends javax.swing.JFrame {
         t2.start();
         t3.start();
         t4.start();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        t1.pausahilo();
-        t2.pausahilo();
-        t3.pausahilo();
-        t4.pausahilo();        
+        int k;
+        k=(int)Math.round(Math.random()*4);
+        System.out.println(k);
+        Lp[k].setRun(false); 
     }//GEN-LAST:event_jButton2ActionPerformed
     
     public static void main(String args[]) {
@@ -203,6 +209,7 @@ public class CondicionnesCompetencias extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private Hilo t1,t2,t3,t4;
     private RCompartido rc;
+    private Hilo Lp[]; 
 }
 
 

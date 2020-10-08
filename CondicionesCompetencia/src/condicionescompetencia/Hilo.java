@@ -8,26 +8,25 @@ public class Hilo extends Thread{
         this.area=area;
         this.rc=rc;
     }
-    public void pausahilo(){
-        run=false;
+    public void setRun(boolean run) {
+        this.run = run;
+    }
+    public boolean isRun() {
+        return run;
     }
     public void run(){
         try{    
-            while(true){
-                if(run==true){
+            if(run==true){
+                while(run){
                     rc.setDatoCompartido(this.getName());
                     area.append(rc.getDatoCompartido()+"\n");
-                    Thread.sleep(1500);
+                    Thread.sleep(1000);
                 }
-                else{
-                    Thread.interrupted();
-                }
+            }else{
+                Thread.interrupted();
             }
-        }catch(IllegalMonitorStateException e){
-            e.printStackTrace();
         }catch(Exception a){
             a.printStackTrace();
-        }  
-        
+        }   
     }
 }
