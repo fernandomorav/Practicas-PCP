@@ -147,15 +147,10 @@ public class CondicionnesCompetencias extends javax.swing.JFrame {
         t2.start();
         t3.start();
         t4.start();
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        int k;
-        k=(int)Math.round(Math.random()*4);
-        System.out.println(k);
-        Lp[k].setRun(false); 
     }//GEN-LAST:event_jButton2ActionPerformed
     
     public static void main(String args[]) {
