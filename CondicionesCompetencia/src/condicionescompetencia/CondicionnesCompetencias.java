@@ -16,10 +16,6 @@ public class CondicionnesCompetencias extends javax.swing.JFrame {
         t3.setName("Perrito 3");
         t4 = new Hilo(jTextArea4,rc);
         t4.setName("Perrito 4");
-        Lp[0]=t1;
-        Lp[1]=t2;
-        Lp[2]=t3;
-        Lp[3]=t4;
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
