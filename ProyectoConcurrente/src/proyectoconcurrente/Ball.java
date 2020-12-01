@@ -73,15 +73,13 @@ public class Ball  extends Thread{
                         Thread.sleep(10+(int)Math.random()*20);
                     break;
                     case 4:
-                        if(!barrera.isBroken()){
-                            System.out.println(this.secc + " Barreras");
-                            barrera.await();
-                            x.setX(x.getX() + bx); 
-                            y.setY(y.getY() + by);
-                            MovimientoXY();
-                            panel.ActuaslizaXYN(x, y, this.secc - 1); 
-                            panel.repaint();
-                        } 
+                        System.out.println(this.secc + " Barreras");
+                        x.setX(x.getX() + bx); 
+                        y.setY(y.getY() + by);
+                        MovimientoXY();
+                        panel.ActuaslizaXYN(x, y, this.secc - 1); 
+                        barrera.await();
+                        panel.repaint();
                         Thread.sleep(10+(int)Math.random()*20);
                     break;
                 }
