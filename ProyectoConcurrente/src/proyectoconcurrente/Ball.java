@@ -37,22 +37,28 @@ public class Ball  extends Thread{
                             mutex.lock();
                             x.setX(x.getX() + bx); 
                             y.setY(y.getY() + by);
+                            MovimientoXY();
                             panel.ActuaslizaXYN(x, y, this.secc - 1); 
+                            panel.repaint();
                             mutex.unlock();
                         }
+                        Thread.sleep(10+(int)Math.random()*20);
                     break;
                     case 1:
                         semaforo.acquire();
                         System.out.println(this.secc + " Semaforos");
                         x.setX(x.getX() + bx); 
                         y.setY(y.getY() + by);
+                        MovimientoXY();
                         panel.ActuaslizaXYN(x, y, this.secc - 1); 
+                        panel.repaint();
                         semaforo.release();
+                        Thread.sleep(10+(int)Math.random()*20);
                     break;
                     case 2:
                         System.out.println(this.secc + " Monitores");
                         OperacionXY();
-                        panel.ActuaslizaXYN(x, y, this.secc - 1); 
+                        Thread.sleep(10+(int)Math.random()*20);
                     break;
                     case 3:
                         mutex.lock();
@@ -60,8 +66,11 @@ public class Ball  extends Thread{
                         Espera(mutex);
                         x.setX(x.getX() + bx); 
                         y.setY(y.getY() + by);
+                        MovimientoXY();
                         panel.ActuaslizaXYN(x, y, this.secc - 1); 
+                        panel.repaint();
                         Señal(mutex);
+                        Thread.sleep(10+(int)Math.random()*20);
                     break;
                     case 4:
                         if(!barrera.isBroken()){
@@ -69,14 +78,13 @@ public class Ball  extends Thread{
                             barrera.await();
                             x.setX(x.getX() + bx); 
                             y.setY(y.getY() + by);
-                            panel.ActuaslizaXYN(x, y, this.secc - 1);
+                            MovimientoXY();
+                            panel.ActuaslizaXYN(x, y, this.secc - 1); 
+                            panel.repaint();
                         } 
+                        Thread.sleep(10+(int)Math.random()*20);
                     break;
                 }
-                MovimientoXY();
-                panel.repaint();
-                Thread.sleep(18);
-                //Thread.sleep(10+(int)Math.random()*20);
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -133,8 +141,11 @@ public class Ball  extends Thread{
             Ocupado = true;
             x.setX(x.getX() + bx); 
             y.setY(y.getY() + by);
+            MovimientoXY();
+            panel.ActuaslizaXYN(x, y, this.secc - 1); 
+            panel.repaint();
             Ocupado = false;
-            notify();
+            notifyAll();
         }catch(Exception e){}
     }
     public synchronized void Espera(Lock mutex){
@@ -149,7 +160,7 @@ public class Ball  extends Thread{
         try{
             Ocupado = false;
             mutex.unlock();
-            notify();
+            notifyAll();
         }catch(Exception e){}
     }
     public CyclicBarrier getBarrera() {
