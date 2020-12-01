@@ -1,8 +1,8 @@
 package proyectoconcurrente;
 public class MY {
     private int y;
-    MY(){
-        y=0;
+    MY(int y){
+        this.y = y;
     }
     public int getY() {
         return y;

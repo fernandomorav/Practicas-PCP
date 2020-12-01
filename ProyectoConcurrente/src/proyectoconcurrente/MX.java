@@ -1,8 +1,8 @@
 package proyectoconcurrente;
 public class MX {
     private int x;
-    MX(){
-        x=0;
+    MX(int x){
+        this.x = x;
     }
     public int getX() {
         return x;
