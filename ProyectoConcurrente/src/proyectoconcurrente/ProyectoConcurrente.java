@@ -9,6 +9,7 @@ import java.util.*;
 import java.util.concurrent.CyclicBarrier;
 public class ProyectoConcurrente extends javax.swing.JFrame {
     private PanelBall panel;  
+    private gPerformed panelG;
     private ArrayList <Ball> Balls;
     private MX []x = new MX[10];
     private MY []y = new MY[10];
@@ -32,11 +33,14 @@ public class ProyectoConcurrente extends javax.swing.JFrame {
         }
         n = new NumeroBall();
         panel = new PanelBall(img, n);
+        panelG = new gPerformed();
         Balls = new ArrayList<Ball>();
         panel.setBackground(new Color(135,206,235));
         panel.setBounds(0, 0, 1360, 680);
         add(panel);
+        panelG.setBounds(0, 0, 1000, 650);
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -58,6 +62,7 @@ public class ProyectoConcurrente extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        BotonGrafica = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         ButtonMutex = new javax.swing.JRadioButtonMenuItem();
         ButtonSemaforo = new javax.swing.JRadioButtonMenuItem();
@@ -118,6 +123,14 @@ public class ProyectoConcurrente extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem4);
+
+        BotonGrafica.setText("Graficar");
+        BotonGrafica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonGraficaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(BotonGrafica);
 
         jMenuBar1.add(jMenu2);
 
@@ -208,7 +221,7 @@ public class ProyectoConcurrente extends javax.swing.JFrame {
                 x[7] = new MX(panel.getWidth());
                 y[7] = new MY(c[2]);
                 x[8] = new MX(0);
-                y[8] = new MY(c[3]);
+                y[8] = new MY(c[3]); 
                 x[9] = new MX(panel.getWidth());
                 y[9] = new MY(c[3]);
                 barrera = new CyclicBarrier(s);
@@ -286,6 +299,13 @@ public class ProyectoConcurrente extends javax.swing.JFrame {
     private void ButtonMonitoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonMonitoresActionPerformed
         
     }//GEN-LAST:event_ButtonMonitoresActionPerformed
+
+    private void BotonGraficaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGraficaActionPerformed
+        Grafica gr = new Grafica();
+        gr.add(panelG);
+        gr.setVisible(true);
+        panelG.actualizar(Balls.get(0).getDatosY());
+    }//GEN-LAST:event_BotonGraficaActionPerformed
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -315,6 +335,7 @@ public class ProyectoConcurrente extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem BotonGrafica;
     private javax.swing.JRadioButtonMenuItem ButtonBarreras;
     private javax.swing.JRadioButtonMenuItem ButtonMonitores;
     private javax.swing.JRadioButtonMenuItem ButtonMutex;

@@ -19,7 +19,7 @@ public class gPerformed extends JPanel{
             JFreeChart chart = ChartFactory.createXYLineChart(
             "Rendimiento de los Drones",
             "Iteracciones->",
-            "Minimos ->",
+            "Eje Y ->",
             dataset,
             PlotOrientation.VERTICAL,
             false,
@@ -31,12 +31,10 @@ public class gPerformed extends JPanel{
         add(panel);
         validate();            
     }
-    public void actualizar(double[] datosX,double[] datosY){
-        for(int i = 0; i< datosX.length; i++){
-            seriesX.add(i,(double)datosX[i]);
+    public void actualizar(double[] datosY){
+        for(int i = 0; i< datosY.length; i++){
             seriesY.add(i,(double)datosY[i]);
         }
-        dataset.addSeries(seriesX);
         dataset.addSeries(seriesY);
         panel.repaint();
     }

@@ -10,6 +10,8 @@ public class Ball  extends Thread{
     private PanelBall panel;
     private MX x;
     private MY y;
+    private double[] datosX;
+    private double[] datosY;
     private int bx = 5;
     private int by = 3;
     private int secc, div;
@@ -24,10 +26,13 @@ public class Ball  extends Thread{
         this.div = div;
         this.x = x;
         this.y = y;
+        this.datosX = new double[10000];
+        this.datosY = new double[10000];
         this.mutex = new ReentrantLock();
         this.semaforo = new Semaphore(1);
     }
     public void run(){
+        int iter = 0;
         while(true){ 
             try{
                 switch(getAlgoritmo()){
@@ -37,6 +42,7 @@ public class Ball  extends Thread{
                             mutex.lock();
                             x.setX(x.getX() + bx); 
                             y.setY(y.getY() + by);
+                            Grafica(iter);
                             MovimientoXY();
                             panel.ActuaslizaXYN(x, y, this.secc - 1); 
                             panel.repaint();
@@ -49,6 +55,7 @@ public class Ball  extends Thread{
                         System.out.println(this.secc + " Semaforos");
                         x.setX(x.getX() + bx); 
                         y.setY(y.getY() + by);
+                        Grafica(iter);
                         MovimientoXY();
                         panel.ActuaslizaXYN(x, y, this.secc - 1); 
                         panel.repaint();
@@ -57,7 +64,7 @@ public class Ball  extends Thread{
                     break;
                     case 2:
                         System.out.println(this.secc + " Monitores");
-                        OperacionXY();
+                        OperacionXY(iter);
                         Thread.sleep(10+(int)Math.random()*20);
                     break;
                     case 3:
@@ -66,6 +73,7 @@ public class Ball  extends Thread{
                         Espera(mutex);
                         x.setX(x.getX() + bx); 
                         y.setY(y.getY() + by);
+                        Grafica(iter);
                         MovimientoXY();
                         panel.ActuaslizaXYN(x, y, this.secc - 1); 
                         panel.repaint();
@@ -76,6 +84,7 @@ public class Ball  extends Thread{
                         System.out.println(this.secc + " Barreras");
                         x.setX(x.getX() + bx); 
                         y.setY(y.getY() + by);
+                        Grafica(iter);
                         MovimientoXY();
                         panel.ActuaslizaXYN(x, y, this.secc - 1); 
                         barrera.await();
@@ -83,6 +92,7 @@ public class Ball  extends Thread{
                         Thread.sleep(10+(int)Math.random()*20);
                     break;
                 }
+                iter++;
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -131,7 +141,7 @@ public class Ball  extends Thread{
     public void setAlgoritmo(int algoritmo) {
         this.algoritmo = algoritmo;
     }
-    public synchronized void OperacionXY(){
+    public synchronized void OperacionXY(int iter){
         try{
             while(Ocupado){
                 wait();                 
@@ -139,6 +149,7 @@ public class Ball  extends Thread{
             Ocupado = true;
             x.setX(x.getX() + bx); 
             y.setY(y.getY() + by);
+            Grafica(iter);
             MovimientoXY();
             panel.ActuaslizaXYN(x, y, this.secc - 1); 
             panel.repaint();
@@ -164,7 +175,26 @@ public class Ball  extends Thread{
     public CyclicBarrier getBarrera() {
         return barrera;
     }
+    public void Grafica(int iter){
+        if(iter < datosX.length){
+                datosX[iter] = x.getX();
+                datosY[iter] = y.getY();
+        }
+    }
     public void setBarrera(CyclicBarrier barrera) {
         this.barrera = barrera;
     }
+    public double[] getDatosX() {
+        return datosX;
+    }
+    public void setDatosX(double[] datosX) {
+        this.datosX = datosX;
+    }
+    public double[] getDatosY() {
+        return datosY;
+    }
+    public void setDatosY(double[] datosY) {
+        this.datosY = datosY;
+    }
+    
 }
